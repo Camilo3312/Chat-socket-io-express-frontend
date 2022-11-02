@@ -1,0 +1,25 @@
+.message_card {
+    position: relative;
+    padding: 14px;
+    border-radius: 15px;
+    background: #4f7ef5;
+    color: #FFFF;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    .message {
+        font-size: 14px;
+        /* color: #010e69; */
+    }
+
+    .date_card {
+        display: flex;
+
+        .date_message {
+            font-size: 10px;
+        }
+    }
+}

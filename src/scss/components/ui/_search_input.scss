@@ -1,0 +1,41 @@
+.search_users {
+    margin: 20px 0 0 0;
+
+    .input_search {
+        position: relative;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .search_icon {
+            width: 15px;
+            fill: #b6b6b6;
+            position: absolute;
+            left: 13px;
+        }
+
+        .search_all_users {
+            width: 100%;
+        
+            padding: 9px 15px 9px 40px;
+            border-radius: 20px;
+            border: none;
+            background: #f3f6fe;
+            color: #b6b6b6;
+            outline: none;
+
+            &:focus {
+                outline: solid 3px #a5bdfa;
+                transition: all ease-in 100ms;
+            }
+        }
+        
+        .loader_search {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 40px;
+        }        
+    }
+}

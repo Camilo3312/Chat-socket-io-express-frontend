@@ -1,0 +1,50 @@
+.header_my_profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header_info_profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .image_my_profile {
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        .info_profile {
+            // display: flex;
+            // flex-direction: column;
+            /* gap: 4px; */
+
+            .full_name {
+                color: #acacac;
+                font-weight: 700;
+            }
+        }
+
+    }
+
+    .logout_icon {
+        width: 30px;
+        padding: 5px;
+        fill: #727272;
+        border-radius: 6px;
+
+        &:hover {
+            cursor: pointer;
+            background: #eeeeee;
+            transition: all ease-in-out 200ms;
+        }
+    
+    }
+}
+
+
+
+
+
+
