@@ -25,6 +25,16 @@
         }
         
     }
+
+    .arrow_left {
+        width: 25px;
+        fill: #acacac;
+
+        @media screen and (min-width: 700px) {
+            display: none;
+        }
+
+    }
 }
 
 .info_connection_state {

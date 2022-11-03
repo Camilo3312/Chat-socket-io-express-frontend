@@ -29,8 +29,10 @@ export const ChatCard = ({ information }) => {
 
                     {
                         information.id_user_send_message != value.id_user &&
-                            information.is_read == 2 &&
+                            information.is_read == 2 ?
                             <p className='new_message'>New message</p>
+                            :
+                            <p></p>
                     }
                 </div>
             </div>

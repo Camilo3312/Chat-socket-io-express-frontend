@@ -8,8 +8,6 @@ import CryptoJS from 'crypto-js'
 
 import { ReactComponent as NodejsIcon } from 'Resources/Icons/Nodejs.svg'
 import { ReactComponent as SocketioIcon } from 'Resources/Icons/Socketio.svg'
-import { ReactComponent as Search } from 'Resources/Icons/Search.svg'
-import { ReactComponent as AddPeople } from 'Resources/Icons/AddPeople.svg'
 
 import { MessageCard } from 'Components/UI/MessageCard'
 import { Loader } from 'Components/UI/Loader'
@@ -66,12 +64,14 @@ export const Chat = () => {
     
     const chatRef = useRef()
     const inputRef = useRef()
+    const sidebarRef = useRef()
+    const messagesRef = useRef()
 
     // https://chat-socket-io-express.onrender.com
 
     return (
         <main className='main_chat'>
-            <div className='sidebar_chat'>
+            <div className='sidebar_chat' ref={sidebarRef}>
                 <div className="header_profile">
                     <Profile functions={{
                         disconnect
@@ -81,21 +81,28 @@ export const Chat = () => {
                         setCurrentChat, setMessages, setData_
                     }} />
                 </div>
-
-                <Chats chats={chats} functions={{
-                    roomConnect,
-                    setCurrentChat,
-                    setCurrentInedx,
-                    inputRef,
-                    users: users
-                }} />
+                <div className='select_chat' onClick={e => {
+                    sidebarRef.current.classList.add('ocult')
+                    messagesRef.current.classList.add('show')    
+                }}  >
+                    <Chats chats={chats} functions={{
+                        roomConnect,
+                        setCurrentChat,
+                        setCurrentInedx,
+                        inputRef,
+                        users: users
+                    }} />
+                </div>
             </div>
 
-            <div className="messages">
+            <div className="messages" ref={messagesRef}>
 
                 {currentChat ?
                     <>
-                        <CurrentChat current_chat={currentChat} />
+                        <CurrentChat current_chat={currentChat} references={{
+                            sidebarRef:sidebarRef, 
+                            messagesRef: messagesRef
+                        }} />
                         <Messages messages={messages} functions={{ chatRef }} />
                         <FormMessage functions={{
                             currentChat: currentChat,
