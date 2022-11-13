@@ -3,7 +3,8 @@ import { UserContext } from 'Context/userProvider'
 import React, { useContext } from 'react'
 
 export const Messages = ({ messages, functions }) => {
-    const data = useContext(UserContext)
+    const { userauth: data } = useContext(UserContext)
+
     return (
         <div ref={functions.chatRef} className="chat_messages">
             {

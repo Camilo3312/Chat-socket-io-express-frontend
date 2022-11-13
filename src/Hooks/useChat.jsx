@@ -7,17 +7,16 @@ import { useFetch } from './useFetch';
 const socket = io(process.env.REACT_APP_API_URL)
 
 export const useChat = () => {
-    const { id_user, isauth } = useContext(UserContext)
-
+    const data = useContext(UserContext)
+    const { userauth } = data
     const [messages, setMessages] = useState([])
     const [chats, setChats] = useState([])
 
     const render_chats = () => {
-        socket.emit('chats', id_user)
+        socket.emit('chats', userauth?.id_user)
     }
 
     useEffect(() => {
-
         const reciveMessage = (message, id_user, date, room) => {
             setMessages([...messages, {
                 date_message: date,
@@ -57,7 +56,7 @@ export const useChat = () => {
     }
 
     const sendMessage = (message, date, room) => {
-        socket.emit('message', message, id_user, date, room)
+        socket.emit('message', message, userauth?.id_user, date, room)
         render_chats()
     }
 
@@ -83,11 +82,11 @@ export const useChat = () => {
     }
 
     const connect = () => {
-        socket.emit('userconnection', id_user)
+        socket.emit('userconnection', userauth?.id_user)
     }
 
     const disconnect = () => {
-        socket.emit('disconnected', id_user)
+        socket.emit('disconnected', userauth?.id_user)
     }
 
     return {

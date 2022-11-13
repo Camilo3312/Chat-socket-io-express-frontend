@@ -19,9 +19,10 @@ import { FormMessage } from 'Components/Layout/FormMessage'
 import { Profile } from 'Components/Layout/Profile'
 import { SearchInput } from 'Components/UI/SearchInput'
 import { SearchResult } from 'Components/Layout/SearchResult'
+import { useNavigate } from 'react-router-dom'
 
 export const Chat = () => {
-
+    const { is_auth } = useContext(UserContext)
     const [message, setMessage] = useState()
     const [username, setUsername] = useState(null)
     const [currentChat, setCurrentChat] = useState(null)
@@ -30,13 +31,15 @@ export const Chat = () => {
     const { messages, setMessages, update, chats, disconnect, connect, roomConnect, sendMessage, setChats } = useChat()
     
     const { data: users, loading, get, setData_ } = useFetch()
-    
+    const navigate = useNavigate()
     useEffect(() => {
         !username && setData_(null)
         !username && setUsername(null)
     }, [username])
 
     useEffect(() => {
+        if(!is_auth())
+            navigate('/')
         connect()
     }, [])
     

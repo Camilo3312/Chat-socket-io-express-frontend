@@ -47,6 +47,8 @@ export const useAuth = () => {
     const logout = () => {
         removeValue()
         navigate('/')
+        window.location.reload()
+
     }
 
     return { google_auth, auth, loading, logout }

@@ -5,7 +5,8 @@ import { ReactComponent as Search } from 'Resources/Icons/Search.svg'
 
 export const Chats = ({ chats, functions }) => {
     
-    const data = useContext(UserContext)
+    const { userauth: data } = useContext(UserContext)
+
 
     return (
 

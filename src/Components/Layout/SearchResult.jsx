@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 
 export const SearchResult = ({ users, functions }) => {
 
-    const data = useContext(UserContext)
+    const { userauth: data } = useContext(UserContext)
 
     return (
 

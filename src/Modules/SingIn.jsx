@@ -2,13 +2,24 @@ import React, { useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from 'Hooks/useAuth';
 import jwt_decode from "jwt-decode";
+import { UserContext } from 'Context/userProvider';
+import { useContext } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const SingIn = () => {
 
+    const navigate = useNavigate()
+    const { is_auth } = useContext(UserContext)
     const { google_auth, auth, loading } = useAuth()
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
 
+    useEffect(() => {
+        if (is_auth())
+            navigate('/chat')
+    }, [])
+    
     return (
         <main>
             <div className="center_main">
@@ -29,12 +40,12 @@ export const SingIn = () => {
                         />
                         {
                             loading ?
-                            <p>Loading</p>
-                            :
-                            null
+                                <p>Loading</p>
+                                :
+                                null
                         }
                     </div>
-                    
+
                     {/* <div className="test_login">
                         <form className="registry" onSubmit={e => {
                             e.preventDefault()

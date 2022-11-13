@@ -4,7 +4,8 @@ import { ReactComponent as SendIcon } from 'Resources/Icons/Send.svg'
 
 export const FormMessage = ({functions, state_message}) => {
 
-    const data = useContext(UserContext)
+    const { userauth: data } = useContext(UserContext)
+
     const [message, setMessage] = useState()
 
     const getDate = () => {

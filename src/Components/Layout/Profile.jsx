@@ -5,7 +5,8 @@ import { useAuth } from 'Hooks/useAuth'
 
 export const Profile = ({ functions }) => {
 
-    const data = useContext(UserContext)
+    const { userauth: data } = useContext(UserContext)
+
     const { logout } = useAuth()
 
     return (
