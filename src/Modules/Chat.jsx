@@ -21,6 +21,8 @@ import { SearchInput } from 'Components/UI/SearchInput'
 import { SearchResult } from 'Components/Layout/SearchResult'
 import { useNavigate } from 'react-router-dom'
 
+import addNotification, { Notifications } from 'react-push-notification';
+
 export const Chat = () => {
     const { is_auth } = useContext(UserContext)
     const [message, setMessage] = useState()
@@ -56,12 +58,26 @@ export const Chat = () => {
             }
         }
     }, [chats])
-    
+
+    const push_notification = () => {
+        addNotification({
+            title: 'Hola',
+            message: 'This is a push notification',
+            duration: 5000,
+            icon: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+            native: true,
+            onClick: () => window.loation = 'https://www.youtube.com/watch?v=hdf1iLzhaCQ'
+        })
+    }
+
+
     useEffect(() => {
         if (chatRef && chatRef.current) {
             const { scrollHeight, clientHeight } = chatRef.current;
             chatRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' });
         }
+        push_notification()
+
     }, [messages])
     
     
