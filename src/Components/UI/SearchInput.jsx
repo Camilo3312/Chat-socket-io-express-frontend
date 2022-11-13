@@ -11,7 +11,7 @@ export const SearchInput = ({ state, functions }) => {
                 <input type="search" className='search_all_users' placeholder='search people' ref={functions.inputRef} onChange={e => {
                     state.setUsername(e.target.value)
                     e.target.value &&
-                        functions.get(`${process.env.REACT_APP_API_URL}/get_users/${e.target.value}`)
+                        functions.get(`${process.env.REACT_APP_API_URL}/users/${e.target.value}`)
 
                 }} name="" id="" />
                 <div className="loader_search">

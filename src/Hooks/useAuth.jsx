@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLocalStorage } from './useLocalStorage'
 
 export const useAuth = () => {
-
+    // https://chat-socket-io-express-production.up.railway.app
     const navigate = useNavigate()
     const [value, setValue, removeValue] = useLocalStorage('user_auth', null)
     const [loading, setLoading] = useState(null)
@@ -13,7 +13,7 @@ export const useAuth = () => {
     const google_auth = (data) => {
         setLoading(true)
         try {
-            axios.post(`${process.env.REACT_APP_API_URL}/google_auth`, data)
+            axios.post(`${process.env.REACT_APP_API_URL}/auth/google`, data)
             .then(response => { 
                 console.log(response.data)
                 setValue({...response.data,...data})

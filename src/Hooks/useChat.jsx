@@ -30,7 +30,6 @@ export const useChat = () => {
 
         const reciveChats = (datas) => {
             setChats(datas)
-            // console.log(datas);
         }
 
         const new_message = () => {
@@ -51,9 +50,8 @@ export const useChat = () => {
 
 
     const getMessages = async (currentRoom) => {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/get_messages/${currentRoom}`)
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/chat/messages/${currentRoom}`)
         .then(response => {
-            // console.log(response.data)
             setMessages(response.data)
         })    
     }
@@ -64,12 +62,11 @@ export const useChat = () => {
     }
 
     const update = async (data) => {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/new_chat`, data)
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat`, data)
             .then(response => {
                 // console.log(response.data)
                 // setMessages(response.data)
                 socket.emit('update')
-                render_chats()
                 return response.data
             })
 
