@@ -21,7 +21,6 @@ import { SearchInput } from 'Components/UI/SearchInput'
 import { SearchResult } from 'Components/Layout/SearchResult'
 import { useNavigate } from 'react-router-dom'
 
-import addNotification, { Notifications } from 'react-push-notification';
 
 export const Chat = () => {
     const { is_auth } = useContext(UserContext)
@@ -31,7 +30,7 @@ export const Chat = () => {
     const [currentIndex, setCurrentInedx] = useState(0)
 
     const { messages, setMessages, update, chats, disconnect, connect, roomConnect, sendMessage, setChats } = useChat()
-    
+
     const { data: users, loading, get, setData_ } = useFetch()
     const navigate = useNavigate()
     useEffect(() => {
@@ -39,12 +38,21 @@ export const Chat = () => {
         !username && setUsername(null)
     }, [username])
 
+    function askNotificationPermission() {
+        // función para pedir los permisos
+        Notification.requestPermission().then(function (result) {
+
+        });
+
+    }
+
     useEffect(() => {
-        if(!is_auth())
+        if (!is_auth())
             navigate('/')
         connect()
+        askNotificationPermission()
     }, [])
-    
+
     useEffect(() => {
         if (!currentChat) {
             // console.log('No existe un chat seleccionado');
@@ -59,16 +67,6 @@ export const Chat = () => {
         }
     }, [chats])
 
-    const push_notification = () => {
-        addNotification({
-            title: 'Hola',
-            message: 'This is a push notification',
-            duration: 5000,
-            icon: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            native: true,
-            onClick: () => window.loation = 'https://www.youtube.com/watch?v=hdf1iLzhaCQ'
-        })
-    }
 
 
     useEffect(() => {
@@ -76,11 +74,10 @@ export const Chat = () => {
             const { scrollHeight, clientHeight } = chatRef.current;
             chatRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight, behavior: 'smooth' });
         }
-        push_notification()
 
     }, [messages])
-    
-    
+
+
     const chatRef = useRef()
     const inputRef = useRef()
     const sidebarRef = useRef()
@@ -95,14 +92,14 @@ export const Chat = () => {
                     <Profile functions={{
                         disconnect
                     }} />
-                    <SearchInput state={{ setUsername, loading }} functions={{inputRef, get}} />
+                    <SearchInput state={{ setUsername, loading }} functions={{ inputRef, get }} />
                     <SearchResult users={users} functions={{
                         setCurrentChat, setMessages, setData_
                     }} />
                 </div>
                 <div className='select_chat' onClick={e => {
                     sidebarRef.current.classList.add('ocult')
-                    messagesRef.current.classList.add('show')    
+                    messagesRef.current.classList.add('show')
                 }}  >
                     <Chats chats={chats} functions={{
                         roomConnect,
@@ -119,7 +116,7 @@ export const Chat = () => {
                 {currentChat ?
                     <>
                         <CurrentChat current_chat={currentChat} references={{
-                            sidebarRef:sidebarRef, 
+                            sidebarRef: sidebarRef,
                             messagesRef: messagesRef
                         }} />
                         <Messages messages={messages} functions={{ chatRef }} />
