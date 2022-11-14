@@ -20,7 +20,7 @@ export const FormMessage = ({ functions, state_message }) => {
             if (message) {
 
                 if (!functions.currentChat.id_room) {
-
+                    
                     functions.update({ of_id_user: data.id_user, for_id_user: functions.currentChat.id_user })
                         .then(response => {
                             functions.setMessages([...functions.messages, {

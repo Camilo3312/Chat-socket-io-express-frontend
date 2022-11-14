@@ -18,10 +18,10 @@ export const useChat = () => {
 
     const push_notification = () => {
         addNotification({
-            title: 'Hola',
-            message: 'This is a push notification',
+            title: 'You have a message',
+            message: 'Hello',
             duration: 5000,
-            icon: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
+            icon: 'https://cdn.worldvectorlogo.com/logos/socket-io.svg',
             native: true,
             onClick: () => window.loation = 'https://www.youtube.com/watch?v=hdf1iLzhaCQ'
         })
@@ -36,7 +36,6 @@ export const useChat = () => {
                 id_user: id_user,
                 message: message,
             }])
-            console.log(message, id_user);
         }
 
         const reciveChats = (datas) => {
@@ -45,18 +44,23 @@ export const useChat = () => {
 
         const new_message = () => {
             render_chats()
-            push_notification()
         }
+
+        const notification = (data) => {
+            console.log(data);
+            push_notification()
+        } 
 
         socket.on('chats', reciveChats)
         socket.on('message', reciveMessage)
         socket.on('new_message', new_message)
+        socket.on('user_notification', notification)
         render_chats()
 
         return () => {
             socket.off('message', reciveMessage)
             socket.off('chats', reciveChats)
-            socket.off('new_message', new_message)
+            socket.off('user_notification', notification)
         }
     }, [messages])
 
@@ -70,6 +74,7 @@ export const useChat = () => {
 
     const sendMessage = (message, date, room) => {
         socket.emit('message', message, userauth?.id_user, date, room)
+        socket.emit('user_notification', { message, user: userauth?.name, room })
         render_chats()
     }
 
@@ -88,10 +93,6 @@ export const useChat = () => {
     const roomConnect = (room) => {
         socket.emit('connectRoom', room)
         getMessages(room)
-    }
-
-    const updateCurrenChat = (setCurrentChat) => {
-
     }
 
     const connect = () => {

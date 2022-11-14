@@ -33,7 +33,7 @@ export const Chats = ({ chats, functions }) => {
                             ))
                             : 
                             <div className="search_more_people">
-                                <p>No have chats</p>
+                                <p style={{color:'#c5c5c5'}}> Havent chats</p>
                             </div>
                     }
                 </>

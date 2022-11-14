@@ -36,6 +36,7 @@ export const Chat = () => {
     useEffect(() => {
         !username && setData_(null)
         !username && setUsername(null)
+        
     }, [username])
 
     useEffect(() => {
