@@ -2,7 +2,7 @@ import { UserContext } from 'Context/userProvider'
 import React, { useContext, useState } from 'react'
 import { ReactComponent as SendIcon } from 'Resources/Icons/Send.svg'
 
-export const FormMessage = ({functions, state_message}) => {
+export const FormMessage = ({ functions, state_message }) => {
 
     const { userauth: data } = useContext(UserContext)
 
@@ -17,40 +17,39 @@ export const FormMessage = ({functions, state_message}) => {
     return (
         <form onSubmit={e => {
             e.preventDefault()
-            if (!functions.currentChat.id_room) {
+            if (message) {
 
-                functions.update({ of_id_user: data.id_user, for_id_user: functions.currentChat.id_user })
-                    .then(response => {
-                        // console.log('Termino!');
-                        // console.log(response[0]);
+                if (!functions.currentChat.id_room) {
 
-                        functions.setMessages([...functions.messages, {
-                            message: message,
-                            date_message: getDate(),
-                            id_message: null,
-                            id_user: data.id_user,
-                        }])
+                    functions.update({ of_id_user: data.id_user, for_id_user: functions.currentChat.id_user })
+                        .then(response => {
+                            functions.setMessages([...functions.messages, {
+                                message: message,
+                                date_message: getDate(),
+                                id_message: null,
+                                id_user: data.id_user,
+                            }])
+                            functions.sendMessage(message, getDate(), response.id_room)
+                            functions.roomConnect(response.id_room)
+                            functions.setCurrentChat({ ...functions.currentChat, id_room: response.id_room })
+                        })
 
-                        functions.sendMessage(message, getDate(), response[0].id_room)
+                } else {
 
-                        functions.roomConnect(response[0].id_room)
+                    functions.sendMessage(message, getDate(), functions.currentChat.id_room)
+                    functions.setMessages([...functions.messages, {
+                        message: message,
+                        date_message: getDate(),
+                        id_message: null,
+                        id_user: data.id_user,
+                    }])
 
-                        functions.setCurrentChat({ ...functions.currentChat, id_room: response[0].id_room })
-
-
-                    })
+                }
 
             } else {
-
-                functions.sendMessage(message, getDate(), functions.currentChat.id_room)
-                functions.setMessages([...functions.messages, {
-                    message: message,
-                    date_message: getDate(),
-                    id_message: null,
-                    id_user: data.id_user,
-                }])
-                
+                return null
             }
+
 
             setMessage('')
 

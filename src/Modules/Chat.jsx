@@ -38,19 +38,10 @@ export const Chat = () => {
         !username && setUsername(null)
     }, [username])
 
-    function askNotificationPermission() {
-        // función para pedir los permisos
-        Notification.requestPermission().then(function (result) {
-
-        });
-
-    }
-
     useEffect(() => {
         if (!is_auth())
             navigate('/')
         connect()
-        askNotificationPermission()
     }, [])
 
     useEffect(() => {

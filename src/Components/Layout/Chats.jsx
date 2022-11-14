@@ -2,16 +2,15 @@ import React, { useContext } from 'react'
 import { ChatCard } from 'Components/UI/ChatCard'
 import { UserContext } from 'Context/userProvider'
 import { ReactComponent as Search } from 'Resources/Icons/Search.svg'
+import { useRef } from 'react'
 
 export const Chats = ({ chats, functions }) => {
     
     const { userauth: data } = useContext(UserContext)
-
+    const chatRef = useRef()
 
     return (
-
         <div className="my_chats">
-
             {
                 !functions.users &&
                 <>
@@ -19,7 +18,7 @@ export const Chats = ({ chats, functions }) => {
                         chats.length > 0 ?
 
                             chats?.map((item, index) => (
-                                <div key={index} onClick={() => {
+                                <div className='btn_chat' key={index} onClick={(e) => {
                                     functions.roomConnect(item.id_room)
                                     functions.setCurrentChat(item)
                                     functions.setCurrentInedx(index)
@@ -32,14 +31,9 @@ export const Chats = ({ chats, functions }) => {
                                     } />
                                 </div>
                             ))
-                            :
+                            : 
                             <div className="search_more_people">
-                                <button className="btn_search_people" onClick={() => {
-                                    functions.inputRef.current.focus()
-                                }}>
-                                    <Search className='btn_search_icon' />
-                                    <p>Search people</p>
-                                </button>
+                                <p>No have chats</p>
                             </div>
                     }
                 </>
