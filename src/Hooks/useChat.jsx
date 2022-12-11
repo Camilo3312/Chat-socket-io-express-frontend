@@ -9,11 +9,13 @@ const socket = io(process.env.REACT_APP_API_URL)
 export const useChat = () => {
     const data = useContext(UserContext)
     const { userauth } = data
+    const [loadingChats, setLoadingChats] = useState(null)
     const [messages, setMessages] = useState([])
     const [chats, setChats] = useState([])
 
-    const render_chats = () => {
+    const render_chats = async () => {
         socket.emit('chats', userauth?.id_user)
+
     }
 
     const push_notification = () => {
@@ -40,13 +42,14 @@ export const useChat = () => {
 
         const reciveChats = async (datas) => {
             setChats(datas)
+            setLoadingChats(false)
         }
 
         const new_message = () => {
             render_chats()
         }
 
-        const notification =  (data) => {
+        const notification = (data) => {
             console.log(data);
             push_notification()
         }
@@ -97,6 +100,7 @@ export const useChat = () => {
     }
 
     const connect = () => {
+        setLoadingChats(true)
         socket.emit('userconnection', userauth?.id_user)
     }
 
@@ -113,6 +117,7 @@ export const useChat = () => {
         connect,
         setMessages,
         disconnect,
-        update
+        update,
+        loadingChats
     }
 }

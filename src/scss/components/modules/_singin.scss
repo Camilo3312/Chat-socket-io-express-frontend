@@ -34,6 +34,36 @@
                 }
                 
             }
+
+            .google_button {
+                position: relative;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .loader_ {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    background: #FFFF;
+                    border: 1px solid rgba(0, 0, 255, 0.116);
+                    border-radius: 4px;
+
+                    .loader_sing_in {
+                        width: 20px;
+                        height: 20px;
+                        // top: 0;
+                    }
+                }
+                
+            }
+
         }
 
         .test_login {

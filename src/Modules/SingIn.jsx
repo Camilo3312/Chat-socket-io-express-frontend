@@ -6,6 +6,7 @@ import { UserContext } from 'Context/userProvider';
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Loader } from 'Components/UI/Loader';
 
 export const SingIn = () => {
 
@@ -19,7 +20,7 @@ export const SingIn = () => {
         if (is_auth())
             navigate('/chat')
     }, [])
-    
+
     return (
         <main>
             <div className="center_main">
@@ -29,21 +30,26 @@ export const SingIn = () => {
                             <p className='subtitle'>Login</p>
                             <p className='info'>Chat with Socket.io and Express</p>
                         </div>
-                        <GoogleLogin
-                            onSuccess={credentialResponse => {
-                                google_auth(jwt_decode(credentialResponse.credential))
-                                console.log(jwt_decode(credentialResponse.credential));
-                            }}
-                            onError={() => {
-                                console.log('Login Failed')
-                            }}
-                        />
-                        {
-                            loading ?
-                                <p>Loading</p>
-                                :
-                                null
-                        }
+
+                        <div className="google_button">
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    google_auth(jwt_decode(credentialResponse.credential))
+                                    console.log(jwt_decode(credentialResponse.credential));
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed')
+                                }}
+                            />
+                            {
+                                loading &&
+                                <div className="loader_">
+                                    <div className='loader_sing_in'>
+                                        <Loader />
+                                    </div>
+                                </div>
+                            }
+                        </div>
                     </div>
 
                     {/* <div className="test_login">

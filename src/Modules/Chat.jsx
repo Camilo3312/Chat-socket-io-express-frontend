@@ -29,14 +29,14 @@ export const Chat = () => {
     const [currentChat, setCurrentChat] = useState(null)
     const [currentIndex, setCurrentInedx] = useState(0)
 
-    const { messages, setMessages, update, chats, disconnect, connect, roomConnect, sendMessage, setChats } = useChat()
+    const { messages, setMessages, update, chats, disconnect, connect, roomConnect, sendMessage, setChats, loadingChats } = useChat()
 
     const { data: users, loading, get, setData_ } = useFetch()
     const navigate = useNavigate()
     useEffect(() => {
         !username && setData_(null)
         !username && setUsername(null)
-        
+
     }, [username])
 
     useEffect(() => {
@@ -93,6 +93,20 @@ export const Chat = () => {
                     sidebarRef.current.classList.add('ocult')
                     messagesRef.current.classList.add('show')
                 }}  >
+
+
+                    {
+                        loadingChats ?
+                            <>
+                                <div class="video"></div>
+                                <div class="video"></div>
+                                <div class="video"></div>
+                            </>
+                            :
+                            null
+                    }
+
+
                     <Chats chats={chats} functions={{
                         roomConnect,
                         setCurrentChat,
@@ -100,6 +114,8 @@ export const Chat = () => {
                         inputRef,
                         users: users
                     }} />
+
+
                 </div>
             </div>
 
