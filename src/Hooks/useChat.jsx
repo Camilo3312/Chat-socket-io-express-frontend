@@ -38,7 +38,7 @@ export const useChat = () => {
             }])
         }
 
-        const reciveChats = (datas) => {
+        const reciveChats = async (datas) => {
             setChats(datas)
         }
 
@@ -46,10 +46,10 @@ export const useChat = () => {
             render_chats()
         }
 
-        const notification = (data) => {
+        const notification =  (data) => {
             console.log(data);
             push_notification()
-        } 
+        }
 
         socket.on('chats', reciveChats)
         socket.on('message', reciveMessage)
@@ -60,6 +60,7 @@ export const useChat = () => {
         return () => {
             socket.off('message', reciveMessage)
             socket.off('chats', reciveChats)
+            socket.on('new_message', new_message)
             socket.off('user_notification', notification)
         }
     }, [messages])
